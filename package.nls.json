@@ -20,6 +20,7 @@
   "config.buttons.description": "Configuration for quick command buttons",
   "config.buttons.executeAll.description": "Execute all commands in group simultaneously",
   "config.buttons.group.description": "Sub-commands for grouped buttons (supports infinite nesting)",
+  "config.buttons.iconOnly.description": "Show only the icon in the status bar, hiding the button label (requires $(icon-name) syntax in name)",
   "config.buttons.insertOnly.description": "Insert command into terminal without executing (user must press Enter manually)",
   "config.buttons.newTerminal.description": "Always create a new terminal for each execution instead of reusing existing one",
   "config.buttons.name.description": "Button label (supports $(icon-name) syntax)",

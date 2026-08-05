@@ -14,6 +14,7 @@ export type ButtonConfigDraft = {
   command?: string;
   executeAll?: boolean;
   group?: ButtonConfig[];
+  iconOnly?: boolean;
   id: string;
   index?: number;
   insertOnly?: boolean;
@@ -27,6 +28,7 @@ export type ButtonConfigDraft = {
 export const toCommandButton = (draft: ButtonConfigDraft): CommandButton => ({
   color: draft.color,
   command: draft.command ?? "",
+  iconOnly: draft.iconOnly,
   id: draft.id,
   index: draft.index,
   insertOnly: draft.insertOnly,
@@ -41,6 +43,7 @@ export const toGroupButton = (draft: ButtonConfigDraft): GroupButton => ({
   color: draft.color,
   executeAll: draft.executeAll,
   group: draft.group ?? [],
+  iconOnly: draft.iconOnly,
   id: draft.id,
   index: draft.index,
   name: draft.name,
@@ -52,6 +55,7 @@ export const toDraft = (config: ButtonConfig): ButtonConfigDraft => ({
   command: "command" in config ? config.command : undefined,
   executeAll: "executeAll" in config ? config.executeAll : undefined,
   group: "group" in config ? config.group : undefined,
+  iconOnly: config.iconOnly,
   id: config.id,
   index: config.index,
   insertOnly: "insertOnly" in config ? config.insertOnly : undefined,

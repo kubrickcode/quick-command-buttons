@@ -88,6 +88,7 @@ const buttonConfigWithOptionalIdSchema: z.ZodSchema = z.lazy(() =>
     command: z.string().optional(),
     executeAll: z.boolean().optional(),
     group: z.array(buttonConfigWithOptionalIdSchema).optional(),
+    iconOnly: z.boolean().optional(),
     id: z.string().optional(),
     insertOnly: z.boolean().optional(),
     name: z.string(),

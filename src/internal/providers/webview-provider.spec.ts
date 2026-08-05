@@ -737,9 +737,7 @@ describe("webview-provider", () => {
         expect(mockConfigManager.updateSetIndicatorConfig).toHaveBeenCalledWith({
           enabled: false,
         });
-        expect(vscode.commands.executeCommand).toHaveBeenCalledWith(
-          "quickCommandButtons.refresh"
-        );
+        expect(vscode.commands.executeCommand).toHaveBeenCalledWith("quickCommandButtons.refresh");
         expect(mockWebview.postMessage).toHaveBeenCalledWith(
           expect.objectContaining({
             requestId: "set-indicator-request",

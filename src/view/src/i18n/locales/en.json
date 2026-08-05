@@ -46,6 +46,8 @@
     "insertOnlyDesc": "Insert Only (don't execute)",
     "terminalName": "Terminal Name (optional)",
     "terminalNamePlaceholder": "e.g., Build Terminal",
+    "iconOnly": "Show icon only in status bar",
+    "iconOnlyDescription": "Hide the label in the status bar to save space (the name is still shown in the sidebar and tooltip)",
     "newTerminal": "Always create new terminal",
     "newTerminalDescription": "Create a fresh terminal each time instead of reusing existing one",
     "executeAll": "Execute all commands simultaneously",

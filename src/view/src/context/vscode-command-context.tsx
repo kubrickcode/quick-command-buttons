@@ -268,6 +268,7 @@ export const VscodeCommandProvider = ({ children }: VscodeCommandProviderProps) 
       const commandButton: CommandButton = {
         color: button.color,
         command: error.rawCommand as string,
+        iconOnly: button.iconOnly,
         id: button.id,
         insertOnly: isCommandButton(button) ? button.insertOnly : undefined,
         name: button.name,

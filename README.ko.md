@@ -350,6 +350,7 @@ Git에 안 올라가는 개인 버튼을 원한다면?<br>
 | 옵션           | 타입    | 설명                            |
 | -------------- | ------- | ------------------------------- |
 | `name`         | string  | 버튼 이름 (`$(icon)` 문법 지원) |
+| `iconOnly`     | boolean | 상태 바에 아이콘만 표시         |
 | `command`      | string  | 실행할 명령어                   |
 | `useVsCodeApi` | boolean | VS Code API 사용 (터미널 대신)  |
 | `color`        | string  | 버튼 색상 (hex, rgb, CSS 이름)  |

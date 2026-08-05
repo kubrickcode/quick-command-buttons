@@ -24,6 +24,7 @@ export const ensureId = (config: ButtonConfigWithOptionalId): ButtonConfig => {
       color: config.color,
       executeAll: config.executeAll,
       group: config.group.map(ensureId),
+      iconOnly: config.iconOnly,
       id,
       name: config.name,
       shortcut: config.shortcut,
@@ -34,6 +35,7 @@ export const ensureId = (config: ButtonConfigWithOptionalId): ButtonConfig => {
   const commandButton: CommandButton = {
     color: config.color,
     command: config.command ?? "",
+    iconOnly: config.iconOnly,
     id,
     insertOnly: config.insertOnly,
     name: config.name,

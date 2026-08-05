@@ -20,6 +20,7 @@
   "config.buttons.description": "빠른 명령 버튼 구성",
   "config.buttons.executeAll.description": "그룹의 모든 명령 동시 실행",
   "config.buttons.group.description": "그룹 버튼의 하위 명령 (무한 중첩 지원)",
+  "config.buttons.iconOnly.description": "상태 바에서 라벨을 숨기고 아이콘만 표시 (이름에 $(icon-name) 구문 필요)",
   "config.buttons.insertOnly.description": "명령을 실행하지 않고 터미널에만 입력 (사용자가 직접 Enter 입력 필요)",
   "config.buttons.newTerminal.description": "기존 터미널을 재사용하지 않고 매번 새 터미널에서 실행",
   "config.buttons.name.description": "버튼 라벨 ($(icon-name) 구문 지원)",

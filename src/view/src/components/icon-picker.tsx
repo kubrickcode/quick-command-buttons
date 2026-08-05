@@ -6,7 +6,7 @@ import { Button, Input, Popover, PopoverContent, PopoverTrigger } from "~/core";
 import { cn } from "~/core/shadcn/utils";
 
 import { CODICONS } from "../data/codicons";
-import { VSCodeIcon } from "../utils/parse-vscode-icon-name";
+import { VSCodeIcon } from "../utils/vscode-icon";
 
 type IconPickerProps = {
   className?: string;

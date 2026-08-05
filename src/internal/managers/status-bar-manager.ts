@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { ButtonConfig } from "../../pkg/types";
 import { COMMANDS } from "../../shared/constants";
+import { parseIconLabel } from "../../shared/parse-icon-label";
 import { ConfigReader, StatusBarCreator } from "../adapters";
 import { getAppStore } from "../stores/app-store";
 import type { AppStoreInstance } from "../stores/app-store";
@@ -16,8 +17,21 @@ export const calculateButtonPriority = (index: number): number => {
   return 1000 - index;
 };
 
+// Falls back to the full name when iconOnly is set without icon syntax, so a button never becomes invisible
+export const createStatusBarText = (button: ButtonConfig): string => {
+  if (!button.iconOnly) return button.name;
+
+  const { iconToken } = parseIconLabel(button.name);
+  return iconToken ?? button.name;
+};
+
 export const createTooltipText = (button: ButtonConfig): string => {
-  return button.group ? `${button.name} (Click to see options)` : button.command || button.name;
+  if (button.group) return `${button.name} (Click to see options)`;
+  if (!button.command) return button.name;
+  if (!button.iconOnly) return button.command;
+
+  const { displayText } = parseIconLabel(button.name);
+  return displayText ? `${displayText}: ${button.command}` : button.command;
 };
 
 export const createButtonCommand = (button: ButtonConfig) => ({
@@ -97,7 +111,7 @@ export class StatusBarManager implements vscode.Disposable {
         calculateButtonPriority(index)
       );
 
-      statusBarItem.text = button.name;
+      statusBarItem.text = createStatusBarText(button);
       statusBarItem.tooltip = createTooltipText(button);
 
       if (button.color) {

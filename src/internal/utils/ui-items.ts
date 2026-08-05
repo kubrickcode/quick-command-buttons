@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { ButtonConfig } from "../../pkg/types";
 import { MESSAGES } from "../../shared/constants";
+import { parseIconLabel } from "../../shared/parse-icon-label";
 
 export type QuickPickItem = {
   command: ButtonConfig;
@@ -11,14 +12,8 @@ export type QuickPickItem = {
 export type TreeItem = CommandTreeItem | GroupTreeItem;
 
 const parseIconFromLabel = (label: string): { displayLabel: string; iconName?: string } => {
-  const match = label.match(/^\$\(([^)]+)\)\s*/);
-  if (match) {
-    const rawIconName = match[1];
-    const iconName = rawIconName.replace("~spin", "");
-    const displayLabel = label.slice(match[0].length).trim() || iconName;
-    return { displayLabel, iconName };
-  }
-  return { displayLabel: label };
+  const { displayText, iconName } = parseIconLabel(label);
+  return { displayLabel: displayText || iconName || label, iconName };
 };
 
 export class CommandTreeItem extends vscode.TreeItem {

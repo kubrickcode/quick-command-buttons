@@ -46,6 +46,8 @@
     "insertOnlyDesc": "입력만 (실행하지 않음)",
     "terminalName": "터미널 이름 (optional)",
     "terminalNamePlaceholder": "예: 빌드 터미널",
+    "iconOnly": "상태 바에 아이콘만 표시",
+    "iconOnlyDescription": "상태 바 공간을 절약하기 위해 라벨을 숨김 (사이드바와 툴팁에는 이름이 그대로 표시됨)",
     "newTerminal": "항상 새 터미널 생성",
     "newTerminalDescription": "기존 터미널을 재사용하지 않고 매번 새 터미널 생성",
     "executeAll": "모든 명령 동시 실행",

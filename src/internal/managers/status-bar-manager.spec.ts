@@ -3,6 +3,7 @@ import { createAppStore } from "../stores/app-store";
 import type { AppStoreInstance } from "../stores/app-store";
 import {
   calculateButtonPriority,
+  createStatusBarText,
   createTooltipText,
   createButtonCommand,
   configureRefreshButton,
@@ -39,6 +40,62 @@ describe("status-bar-manager", () => {
 
       expect(priority0).toBeGreaterThan(priority1);
       expect(priority1).toBeGreaterThan(priority2);
+    });
+  });
+
+  describe("createStatusBarText", () => {
+    it("should return the full name when iconOnly is not set", () => {
+      const button: ButtonConfig = {
+        command: "npm run build",
+        id: "build",
+        name: "$(rocket) Build",
+      };
+
+      expect(createStatusBarText(button)).toBe("$(rocket) Build");
+    });
+
+    it("should drop the label when iconOnly is set", () => {
+      const button: ButtonConfig = {
+        command: "npm run build",
+        iconOnly: true,
+        id: "build",
+        name: "$(rocket) Build",
+      };
+
+      expect(createStatusBarText(button)).toBe("$(rocket)");
+    });
+
+    it("should keep the spin modifier when iconOnly is set", () => {
+      const button: ButtonConfig = {
+        command: "npm run watch",
+        iconOnly: true,
+        id: "watch",
+        name: "$(gear~spin) Watch",
+      };
+
+      expect(createStatusBarText(button)).toBe("$(gear~spin)");
+    });
+
+    it("should fall back to the full name when iconOnly is set without icon syntax", () => {
+      const button: ButtonConfig = {
+        command: "npm run build",
+        iconOnly: true,
+        id: "build",
+        name: "Build",
+      };
+
+      expect(createStatusBarText(button)).toBe("Build");
+    });
+
+    it("should apply to group buttons as well", () => {
+      const button: ButtonConfig = {
+        group: [{ command: "echo child", id: "child-1", name: "Child" }],
+        iconOnly: true,
+        id: "group",
+        name: "$(folder) Tools",
+      };
+
+      expect(createStatusBarText(button)).toBe("$(folder)");
     });
   });
 
@@ -88,6 +145,30 @@ describe("status-bar-manager", () => {
 
       const result = createTooltipText(button);
       expect(result).toBe("Empty Group (Click to see options)");
+    });
+
+    it("should prepend the hidden label when iconOnly hides it from the status bar", () => {
+      const button: ButtonConfig = {
+        command: "npm run build",
+        iconOnly: true,
+        id: "build",
+        name: "$(rocket) Build",
+      };
+
+      const result = createTooltipText(button);
+      expect(result).toBe("Build: npm run build");
+    });
+
+    it("should return only the command when an iconOnly button has no label", () => {
+      const button: ButtonConfig = {
+        command: "npm run build",
+        iconOnly: true,
+        id: "build",
+        name: "$(rocket)",
+      };
+
+      const result = createTooltipText(button);
+      expect(result).toBe("npm run build");
     });
 
     it("should prioritize group over command when both exist", () => {
@@ -585,9 +666,7 @@ describe("status-bar-manager", () => {
       };
 
       const getCreatedItems = (): MockStatusBarItem[] =>
-        mockStatusBarCreator.mock.results.map(
-          (r: { value: MockStatusBarItem }) => r.value
-        );
+        mockStatusBarCreator.mock.results.map((r: { value: MockStatusBarItem }) => r.value);
 
       it("should not create set indicator when enabled is false", () => {
         mockConfigReader.getSetIndicatorConfig.mockReturnValue({ enabled: false });
@@ -601,9 +680,7 @@ describe("status-bar-manager", () => {
         mockStatusBarCreator.mockClear();
         statusBarManager.refreshButtons();
 
-        const setIndicator = getCreatedItems().find((item) =>
-          item.text.startsWith("$(layers)")
-        );
+        const setIndicator = getCreatedItems().find((item) => item.text.startsWith("$(layers)"));
         expect(setIndicator).toBeUndefined();
       });
 
@@ -619,9 +696,7 @@ describe("status-bar-manager", () => {
         mockStatusBarCreator.mockClear();
         statusBarManager.refreshButtons();
 
-        const setIndicator = getCreatedItems().find((item) =>
-          item.text.startsWith("$(layers)")
-        );
+        const setIndicator = getCreatedItems().find((item) => item.text.startsWith("$(layers)"));
         expect(setIndicator).toBeDefined();
       });
 
@@ -635,9 +710,7 @@ describe("status-bar-manager", () => {
         mockStatusBarCreator.mockClear();
         statusBarManager.refreshButtons();
 
-        const setIndicator = getCreatedItems().find((item) =>
-          item.text.startsWith("$(layers)")
-        );
+        const setIndicator = getCreatedItems().find((item) => item.text.startsWith("$(layers)"));
         expect(setIndicator).toBeDefined();
       });
 
@@ -653,9 +726,7 @@ describe("status-bar-manager", () => {
         mockStatusBarCreator.mockClear();
         statusBarManager.refreshButtons();
 
-        const commandButton = getCreatedItems().find(
-          (item) => item.text === "Test Button 1"
-        );
+        const commandButton = getCreatedItems().find((item) => item.text === "Test Button 1");
         expect(commandButton).toBeDefined();
       });
     });

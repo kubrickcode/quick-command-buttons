@@ -24,6 +24,7 @@ import { ColorInput } from "./color-input";
 import { GroupCommandEditor } from "./group-command-editor";
 import { GroupToSingleWarningDialog } from "./group-to-single-warning-dialog";
 import { IconPicker } from "./icon-picker";
+import { parseIconLabel } from "../../../shared/parse-icon-label";
 import { createCommandFormSchema } from "../schemas/command-form-schema";
 import {
   type ButtonConfig,
@@ -32,7 +33,6 @@ import {
   toCommandButton,
   toGroupButton,
 } from "../types";
-import { parseVSCodeIconName } from "../utils/parse-vscode-icon-name";
 
 type CommandFormProps = {
   command?: (ButtonConfig & { index?: number }) | null;
@@ -49,6 +49,7 @@ const createDefaultValues = (command?: ButtonConfig | null): ButtonConfigDraft =
         command: "",
         executeAll: false,
         group: undefined,
+        iconOnly: false,
         id: crypto.randomUUID(),
         insertOnly: false,
         name: "",
@@ -62,6 +63,7 @@ const buildCommandConfig = (data: ButtonConfigDraft, isGroup: boolean): ButtonCo
   const normalized: ButtonConfigDraft = {
     ...data,
     color: data.color || undefined,
+    iconOnly: data.iconOnly || undefined,
     name: data.name.trim(),
     newTerminal: data.newTerminal || undefined,
     shortcut: data.shortcut || undefined,
@@ -157,7 +159,7 @@ export const CommandForm = ({
   // Parse initial name into icon and display text
   const initialParsed = useMemo(() => {
     const name = command?.name || "";
-    return parseVSCodeIconName(name);
+    return parseIconLabel(name);
   }, [command?.name]);
 
   const [selectedIcon, setSelectedIcon] = useState<string | undefined>(initialParsed.iconName);
@@ -173,6 +175,9 @@ export const CommandForm = ({
   const handleIconChange = (icon: string | undefined) => {
     setSelectedIcon(icon);
     setValue("name", getCombinedName(icon, displayText));
+    if (!icon) {
+      setValue("iconOnly", false);
+    }
   };
 
   const handleDisplayTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,6 +227,22 @@ export const CommandForm = ({
             />
           </div>
         </FormField>
+
+        {selectedIcon && (
+          <Controller
+            control={control}
+            name="iconOnly"
+            render={({ field }) => (
+              <Checkbox
+                checked={field.value}
+                description={t("commandForm.iconOnlyDescription")}
+                id="iconOnly"
+                label={t("commandForm.iconOnly")}
+                onCheckedChange={field.onChange}
+              />
+            )}
+          />
+        )}
 
         <div className="space-y-2">
           <FormLabel>{t("commandForm.commandType")}</FormLabel>

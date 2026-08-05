@@ -1,5 +1,6 @@
 type BaseButtonConfig = {
   color?: string;
+  iconOnly?: boolean;
   id: string;
   name: string;
   shortcut?: string;
@@ -30,6 +31,7 @@ export const isGroupButton = (button: ButtonConfig): button is GroupButton =>
 
 type BaseButtonConfigWithOptionalId = {
   color?: string;
+  iconOnly?: boolean;
   id?: string;
   name: string;
   shortcut?: string;
@@ -121,8 +123,8 @@ export type ValidationError = {
 export type ConfigDataMessage = {
   data: {
     activeSet: string | null;
-    buttonSets: ButtonSet[];
     buttons: ButtonConfig[];
+    buttonSets: ButtonSet[];
     configurationTarget: ConfigurationTarget;
     setIndicatorEnabled: boolean;
     validationErrors?: ValidationError[];

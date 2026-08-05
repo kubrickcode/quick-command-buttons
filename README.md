@@ -350,6 +350,7 @@ Run VS Code commands, not just terminal commands.
 | Option         | Type    | Description                              |
 | -------------- | ------- | ---------------------------------------- |
 | `name`         | string  | Button label (supports `$(icon)` syntax) |
+| `iconOnly`     | boolean | Show only the icon in the status bar     |
 | `command`      | string  | Command to execute                       |
 | `useVsCodeApi` | boolean | Use VS Code API instead of terminal      |
 | `color`        | string  | Button color (hex, rgb, CSS names)       |

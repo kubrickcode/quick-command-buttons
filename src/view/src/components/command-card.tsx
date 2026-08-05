@@ -7,11 +7,12 @@ import { cn } from "~/core/shadcn/utils";
 
 import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 import { ValidationErrorTooltip } from "./validation-error-tooltip";
+import { parseIconLabel } from "../../../shared/parse-icon-label";
 import { useCommandForm } from "../context/command-form-context.tsx";
 import { useVscodeCommand } from "../context/vscode-command-context.tsx";
 import { useSortableItem } from "../hooks/use-sortable-item";
 import { type ButtonConfig } from "../types";
-import { parseVSCodeIconName, VSCodeIcon } from "../utils/parse-vscode-icon-name";
+import { VSCodeIcon } from "../utils/vscode-icon";
 
 type CommandCardProps = {
   command: ButtonConfig;
@@ -25,7 +26,7 @@ export const CommandCard = ({ command, id, index }: CommandCardProps) => {
   const { openEditForm } = useCommandForm();
 
   const { attributes, listeners, setNodeRef, style } = useSortableItem(id);
-  const { displayText, iconName, spin } = parseVSCodeIconName(command.name);
+  const { displayText, iconName, spin } = parseIconLabel(command.name);
 
   const validationError = useMemo(() => {
     return validationErrors.find(
