@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.13.0](https://github.com/KubrickCode/quick-command-buttons/compare/v0.12.0...v0.13.0) (2026-08-05)
+
+### 🎯 Highlights
+
+#### ✨ Features
+
+- 상태 바 공간 절약을 위해 버튼별 아이콘만 표시 옵션 지원 ([10c7ac9](https://github.com/KubrickCode/quick-command-buttons/commit/10c7ac9a0bf9209b5e51098c7fb61116ef37561e))
+
+### 🔧 Maintenance
+
+#### 🔨 Chore
+
+- update claude config ([4a86515](https://github.com/KubrickCode/quick-command-buttons/commit/4a8651593911572d0c20fefb759a1e79cca1d580))
+
 ## [0.12.0](https://github.com/KubrickCode/quick-command-buttons/compare/v0.11.0...v0.12.0) (2026-02-14)
 
 ### 🎯 Highlights
